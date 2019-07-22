@@ -1,0 +1,42 @@
+GET / my_db / _search ? size = 0 {
+	"query": {
+		"bool": {
+			"filter": [{
+					"term": {
+						"id.keyword": {
+							"value": "313"
+						}
+					}
+				}
+			]
+		}
+	},
+	"aggs": {
+		"total_count": {
+			"value_count": {
+				"field": "id.keyword"
+			}
+		},
+		"caller_count": {
+			"cardinality": {
+				"field": "caller.keyword"
+			}
+		},
+		"user_count": {
+			"cardinality": {
+				"field": "user.keyword"
+			}
+		},
+		"times_avg": {
+			"avg": {
+
+				"field": "time"
+			}
+		},
+		"languages_term": {
+			"terms": {
+				"field": "language.keyword"
+			}
+		}
+	}
+}
